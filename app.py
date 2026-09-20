@@ -13,9 +13,9 @@ import numpy as np
 import plotly.graph_objects as go
 from typing import NamedTuple
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Page configuration
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 st.set_page_config(
     page_title="HDPE Recycling TEA / LCA – Hong Kong",
     page_icon="⬡",
@@ -23,9 +23,9 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Baseline defaults
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 DEFAULTS: dict[str, float] = {
     "throughput": 18.0,
     "op_hours": 24.0,
@@ -49,9 +49,9 @@ SUBSYSTEMS: dict[str, float] = {
     "Washing, Friction Washers & Dewatering": 151.0,
 }
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Design tokens — muted, professional, light palette
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
+# Design tokens - muted, professional, light palette
+# ------------------------------------------------------------------------------
 CLR = {
     "bg":       "#ffffff",
     "surface":  "#ffffff",
@@ -68,9 +68,9 @@ CLR = {
     "slate":    "#64748b",
 }
 
-# ──────────────────────────────────────────────────────────────────────────────
-# CSS — minimal, readable, warm neutral palette
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
+# CSS - minimal, readable, warm neutral palette
+# ------------------------------------------------------------------------------
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -79,7 +79,7 @@ st.markdown(f"""
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }}
 
-    /* ── Pure White Background across entire app ── */
+    /* -- Pure White Background across entire app -- */
     html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stHeader"], [data-testid="stToolbar"], section.main, .main {{
         background-color: #ffffff !important;
         background: #ffffff !important;
@@ -91,7 +91,7 @@ st.markdown(f"""
         background-color: #ffffff !important;
     }}
 
-    /* ── Sidebar ── */
+    /* -- Sidebar -- */
     [data-testid="stSidebar"],
     [data-testid="stSidebar"] > div,
     [data-testid="stSidebarContent"],
@@ -123,7 +123,7 @@ st.markdown(f"""
         border-bottom: 1px solid {CLR["border"]};
     }}
 
-    /* ── KPI cards ── */
+    /* -- KPI cards -- */
     .kpi {{
         background: {CLR["surface"]};
         border: 1px solid {CLR["border"]};
@@ -151,7 +151,7 @@ st.markdown(f"""
         margin-top: 0.25rem;
     }}
 
-    /* ── Section labels ── */
+    /* -- Section labels -- */
     .section-label {{
         font-size: 0.88rem;
         font-weight: 600;
@@ -159,7 +159,7 @@ st.markdown(f"""
         margin-bottom: 0.35rem;
     }}
 
-    /* ── Process flow cards ── */
+    /* -- Process flow cards -- */
     .flow-card {{
         background: {CLR["surface"]};
         border: 1px solid {CLR["border"]};
@@ -197,7 +197,7 @@ st.markdown(f"""
         font-size: 1.1rem;
     }}
 
-    /* ── Callout box ── */
+    /* -- Callout box -- */
     .callout {{
         background: #ffffff;
         border: 1px solid {CLR["border"]};
@@ -211,10 +211,10 @@ st.markdown(f"""
         color: {CLR["text"]};
     }}
 
-    /* ── Hide Streamlit chrome ── */
-    #MainMenu, footer, header {{visibility: hidden;}}
+    /* -- Hide Streamlit chrome -- */
+    #MainMenu, footer {{visibility: hidden;}}
 
-    /* ── Tab styling ── */
+    /* -- Tab styling -- */
     .stTabs [data-baseweb="tab-list"] {{
         gap: 0;
         border-bottom: 1px solid {CLR["border"]};
@@ -235,9 +235,9 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Data model
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 class Results(NamedTuple):
     pre_ext_kwh_t: float
     ext_kwh_t: float
@@ -318,9 +318,9 @@ def compute(
     )
 
 
-# ──────────────────────────────────────────────────────────────────────────────
-# Chart helpers — clean, minimal Plotly styling
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
+# Chart helpers - clean, minimal Plotly styling
+# ------------------------------------------------------------------------------
 _LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
@@ -346,13 +346,13 @@ def _style(fig: go.Figure, **kw) -> go.Figure:
     return fig
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Sidebar controls
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("### Parameters")
 
-    if st.button("Reset to defaults", use_container_width=True, type="secondary"):
+    if st.button("Reset to defaults", width="stretch", type="secondary"):
         for k in list(st.session_state.keys()):
             del st.session_state[k]
         st.rerun()
@@ -391,9 +391,9 @@ with st.sidebar:
     food_grade = st.toggle("Food-grade benchmark ($9,500/t)", value=False)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Compute results
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 r = compute(throughput, op_hours, yield_pct, pre_ext_kw, ext_kwh_t,
             tariff, distance, grid_factor, raw_price, sell_price)
 
@@ -403,13 +403,13 @@ if food_grade:
                    DEFAULTS["food_grade_price"])
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Header
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 st.markdown(f"""
 <div style="margin-bottom: 0.15rem">
     <span style="font-size: 1.3rem; font-weight: 700; color: {CLR['text']}">
-        HDPE Recycling — TEA / LCA
+        HDPE Recycling - TEA / LCA
     </span>
 </div>
 <span style="font-size: 0.82rem; color: {CLR['text3']}">
@@ -422,9 +422,9 @@ st.markdown(f'<div style="border-bottom: 1px solid {CLR["border"]}; '
             f'margin: 0.5rem 0 1rem 0"></div>', unsafe_allow_html=True)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # KPI cards
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 def _kpi(label: str, value: str, sub: str, sub_color: str = CLR["text3"]) -> str:
     return f"""<div class="kpi">
         <div class="kpi-label">{label}</div>
@@ -475,16 +475,16 @@ with k4:
 st.markdown('<div style="height:0.6rem"></div>', unsafe_allow_html=True)
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Tabs
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 tab_lca, tab_tea, tab_proc = st.tabs([
     "Environmental Impact",
     "Economic Assessment",
     "Process Inventory",
 ])
 
-# ─── TAB 1 : Environmental Impact (LCA) ─────────────────────────────────────
+# --- TAB 1 : Environmental Impact (LCA) -------------------------------------
 with tab_lca:
     st.markdown('<div style="height:0.35rem"></div>', unsafe_allow_html=True)
     col_l, col_r = st.columns(2, gap="large")
@@ -516,7 +516,7 @@ with tab_lca:
             font=dict(size=17, color=CLR["text"]),
         )
         _style(fig_donut, height=380, showlegend=False)
-        st.plotly_chart(fig_donut, use_container_width=True)
+        st.plotly_chart(fig_donut, width="stretch")
 
     # -- Recycled vs. virgin comparison --
     with col_r:
@@ -547,7 +547,7 @@ with tab_lca:
             xref="paper",
         )
         _style(fig_comp, height=360, yaxis_title="kg CO₂e / tonne", bargap=0.35)
-        st.plotly_chart(fig_comp, use_container_width=True)
+        st.plotly_chart(fig_comp, width="stretch")
 
     # -- LCI summary table --
     st.markdown('<div class="section-label" style="margin-top:0.4rem">'
@@ -576,10 +576,10 @@ with tab_lca:
             f"{r.abatement:.0f} kg CO₂e  ({r.pct_reduction:.1f} %)",
         ],
     })
-    st.dataframe(lci, use_container_width=True, hide_index=True, height=460)
+    st.dataframe(lci, width="stretch", hide_index=True, height=460)
 
 
-# ─── TAB 2 : Techno-Economic Assessment ─────────────────────────────────────
+# --- TAB 2 : Techno-Economic Assessment -------------------------------------
 with tab_tea:
     st.markdown('<div style="height:0.35rem"></div>', unsafe_allow_html=True)
     tea_l, tea_r = st.columns(2, gap="large")
@@ -615,7 +615,7 @@ with tab_tea:
             annotation_position="top right",
         )
         _style(fig_cost, height=370, yaxis_title="$ / tonne", bargap=0.30)
-        st.plotly_chart(fig_cost, use_container_width=True)
+        st.plotly_chart(fig_cost, width="stretch")
 
         breakeven = r.raw_input_cost_t + r.energy_opex_t
         st.markdown(f"""<div class="callout">
@@ -625,7 +625,7 @@ with tab_tea:
 
     # -- Sensitivity analysis --
     with tea_r:
-        st.markdown('<div class="section-label">Sensitivity — Net Margin</div>',
+        st.markdown('<div class="section-label">Sensitivity - Net Margin</div>',
                     unsafe_allow_html=True)
 
         sweep_var = st.radio(
@@ -722,7 +722,7 @@ with tab_tea:
                    font=dict(size=11, color=CLR["text2"]),
                    yanchor="top", y=0.99, xanchor="right", x=0.99,
                ))
-        st.plotly_chart(fig_sens, use_container_width=True)
+        st.plotly_chart(fig_sens, width="stretch")
 
     # Food-grade comparison callout
     if food_grade:
@@ -735,7 +735,7 @@ with tab_tea:
         </div>""", unsafe_allow_html=True)
 
 
-# ─── TAB 3 : Process Flow & Inventory ───────────────────────────────────────
+# --- TAB 3 : Process Flow & Inventory ---------------------------------------
 with tab_proc:
     st.markdown('<div style="height:0.35rem"></div>', unsafe_allow_html=True)
 
@@ -794,7 +794,7 @@ with tab_proc:
         display_df = pd.concat(
             [display_df, pd.DataFrame([totals])], ignore_index=True
         )
-        st.dataframe(display_df, use_container_width=True,
+        st.dataframe(display_df, width="stretch",
                      hide_index=True, height=300)
 
     with p_right:
@@ -818,12 +818,12 @@ with tab_proc:
         _style(fig_bar, height=300, showlegend=False,
                xaxis_title="kWh / tonne",
                yaxis=dict(autorange="reversed"))
-        st.plotly_chart(fig_bar, use_container_width=True)
+        st.plotly_chart(fig_bar, width="stretch")
 
 
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 # Footer
-# ──────────────────────────────────────────────────────────────────────────────
+# ------------------------------------------------------------------------------
 st.markdown(f"""<div style="
     border-top: 1px solid {CLR['border']};
     margin-top: 2rem;
