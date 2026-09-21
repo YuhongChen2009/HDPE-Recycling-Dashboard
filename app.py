@@ -1,5 +1,5 @@
 ﻿"""
-TEA / LCA Modelling Tool – Post-Consumer HDPE Mechanical Recycling (Hong Kong)
+TEA / LCA Modelling Tool – Post-Consumer HDPE Mechanical Recycling
 ================================================================================
 Interactive Streamlit dashboard for techno-economic assessment and life-cycle
 carbon analysis of an industrial-scale HDPE bottle-to-pellet recycling facility.
@@ -17,7 +17,7 @@ from typing import NamedTuple
 # Page configuration
 # ------------------------------------------------------------------------------
 st.set_page_config(
-    page_title="HDPE Recycling TEA / LCA – Hong Kong",
+    page_title="HDPE Recycling TEA / LCA",
     page_icon="⬡",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -413,7 +413,7 @@ st.markdown(f"""
     </span>
 </div>
 <span style="font-size: 0.82rem; color: {CLR['text3']}">
-    Post-consumer mechanical recycling · Hong Kong ·
+    Post-consumer mechanical recycling
     {throughput:.0f} t/day at {yield_pct:.0f}% yield
 </span>
 """, unsafe_allow_html=True)
