@@ -1,4 +1,4 @@
-"""
+﻿"""
 TEA / LCA Modelling Tool – Post-Consumer HDPE Mechanical Recycling (Hong Kong)
 ================================================================================
 Interactive Streamlit dashboard for techno-economic assessment and life-cycle
@@ -832,7 +832,5 @@ st.markdown(f"""<div style="
     font-size: 0.72rem;
     color: {CLR['text3']};
 ">
-    HDPE Recycling TEA / LCA Model &nbsp;·&nbsp;
-    HK CLP Grid Factor &nbsp;·&nbsp;
-    Streamlit + Plotly
+    HDPE Recycling TEA / LCA Model
 </div>""", unsafe_allow_html=True)
