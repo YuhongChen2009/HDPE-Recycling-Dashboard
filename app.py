@@ -414,7 +414,6 @@ st.markdown(f"""
 </div>
 <span style="font-size: 0.82rem; color: {CLR['text3']}">
     Post-consumer mechanical recycling
-    {throughput:.0f} t/day at {yield_pct:.0f}% yield
 </span>
 """, unsafe_allow_html=True)
 
